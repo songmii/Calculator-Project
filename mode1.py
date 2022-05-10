@@ -61,3 +61,4 @@ def cos(calc: str) -> str:
 # print(log('log(10)(10)'))
 # print(ln('ln(2.7)'))
 # print(sin('sin(1.5)'))
+
