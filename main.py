@@ -31,7 +31,7 @@ def calc_mode1(s1): # s1 : 전체 수식
             if (index_sin != -1):
                 list2[i] = list1[i][0: index_sin] + ln(list1[i][index_sin:])
 
-            index_cos = list1[i].find("cos")
+            index_cos = list1[i].find("arccos")
             if (index_cos != -1):
                 list2[i] = list1[i][0: index_cos] + ln(list1[i][index_cos:])
 
