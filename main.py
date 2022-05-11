@@ -35,10 +35,9 @@ def calc_mode1(s1): # s1 : 전체 수식
             if (index_cos != -1):
                 list2[i] = list1[i][0: index_cos] + ln(list1[i][index_cos:])
 
-            index_tan = list1[i].find("tan")
+            index_tan = list1[i].find("arctan")
             if ( index_tan != -1):
                 list2[i] = list1[i][0: index_tan] + ln(list1[i][index_tan:])
-
 
 
 
