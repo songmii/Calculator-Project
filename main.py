@@ -25,4 +25,6 @@ def calc_mode1(s1): # s1 : 전체 수식
 
             index_tan = # "tan" 존재여부 체크
             if (index_tan != -1):
-                list2[i] = eval(list1[i][0:index_tan] + "*" + tan(list1[i][index_tan:]))   
+                list2[i] = eval(list1[i][0:index_tan] + "*" + tan(list1[i][index_tan:]))
+
+            index
