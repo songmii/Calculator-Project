@@ -1,5 +1,6 @@
 # 1.
 import math
+import md1_func
 
 
 def calc_mode1():
