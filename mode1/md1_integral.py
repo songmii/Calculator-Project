@@ -1,6 +1,5 @@
 from math import *
 '''
-integral(2, 5)(x^3 + 2x^2 - 8x + 2) -> [inte~, '2, 5', 'x^3 ~~'] (괄호기준 3등분)
 integral((0, 3), 'cos(2x) + 2'))      integral((0, 3), 'x^3 + 2x^2 - 8x + 2'))
 '''
 
