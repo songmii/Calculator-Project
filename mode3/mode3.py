@@ -1,4 +1,4 @@
-# mode3 : base n
+# mode 3 : base n
 from bases.Bin import dec_to_bin
 from bases.Oct import dec_to_oct
 from bases.Hex import dec_to_hex
