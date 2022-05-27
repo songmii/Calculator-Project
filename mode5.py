@@ -33,7 +33,7 @@ def menu1(matA, matB, matC):  #1:Dim 행렬 A,B,C에 새로운 값을 줄 때 �
 
     size = ""
     while(True):
-        size = input("MatA (mxn)\n1.3x3 2.3x2 3.3x1 4.2x3 5.2x2 6.2x1\n")#선택된 행렬의 크기 선택
+        size = input("Mat (mxn)\n1.3x3 2.3x2 3.3x1 4.2x3 5.2x2 6.2x1\n")#선택된 행렬의 크기 선택
         print()
         if size == "1" or size == "2" or size == "3" or \
            size == "4" or size == "5" or size == "6":
@@ -63,22 +63,17 @@ def menu1(matA, matB, matC):  #1:Dim 행렬 A,B,C에 새로운 값을 줄 때 �
 
     for i in range(len(matrix_temp)): #행렬을 [row][column]의 형식으로 입력 받아서 임시 저장
         for j in range(len(matrix_temp[i])):
-            matrix_temp[i,j] = eval(input(f"[{i}][{j}] : ")) #eval 대신에 mode1 계산!!!!
+            while(True):
+                try:
+                    matrix_temp[i,j] = eval(input(f"[{i}][{j}] : ")) #eval 대신에 mode1 계산!!!!
+                except:
+                    print("wrong input, try again.")
+                else:
+                    break
 
     m = matrixs(matA, matB, matC)
     m.setMat(matrix, matrix_temp)
     matA, matB, matC = m.getMat()
-
-    print() #지정한 행렬의 저장 결과 print
-    if matrix == "1":
-        print("A")
-        print(matA)
-    elif matrix == "2":
-        print("B")
-        print(matB)
-    else:
-        print("C")
-        print(matC)
     print()
 
     return matA, matB, matC #행렬의 값 변경후 다시 return
@@ -107,9 +102,11 @@ def det(mat):#2x2 또는 3x3 행렬의 행렬식 계산
 
     if len(mat) == 0: #행렬에 저장된 값이 없는 경우
         print("Dimension Error")
+        print()
         
     elif len(mat) != len(mat[0]): #행렬이 정사각행렬이 아닌 경우
         print("Dimension Error")
+        print()
         
     if len(mat) == 2: #2x2
         return mat[0,0]*mat[1,1] - mat[0,1]*mat[1,0]
@@ -123,6 +120,7 @@ def det(mat):#2x2 또는 3x3 행렬의 행렬식 계산
 def trn(mat): #행렬의 전치행렬 return
     if len(mat) == 0: #행렬에 저장된 값이 없는 경우
         print("Dimension Error")
+        print()        
     
     else:
         row = len(mat)
@@ -135,44 +133,203 @@ def trn(mat): #행렬의 전치행렬 return
                 result[i, j] = mat[j, i]
 
         return result
+
+
+def dot(mat1, mat2): #9: martrix들의 dot product
+    print(len(mat1[0]), len(mat2))
+    if len(mat1) ==0 or len(mat2) ==0:
+        print("wrong input, try again.")
+        print()
+
+    elif len(mat1[0]) ==0 or len(mat2[0]) ==0:
+        print("wrong input, try again.")
+        print()
+        
+    elif len(mat1[0]) != len(mat2):
+        print("Dimension Error")
+        print()
+
+    else:
+        return np.dot(mat1, mat2)
+    
     
 
-def menu():
+def menu_call():
     menu = ""
     while(True):
-        menu = input("1.Dim 2.Data 3.MatA 4.MatB 5.MatC 6.MatAns 7.det 8.Trn\n")
+        menu = input("1.Dim 2.Data 3.MatA 4.MatB 5.MatC 6.MatAns 7.Det 8.Trn 9.Dot\n")
     
         if menu == "1" or menu == "2" or menu == "3" or menu == "4" or menu == "5" \
-           or menu == "6" or menu == "7" or menu == "8":
+           or menu == "6" or menu == "7" or menu == "8" or menu == "9":
             break
     return menu
 
-            
-def mode5(matA, matB, matC, eq):
+
+def calc_mode5(matA, matB, matC, matAns, s):
+    if s == "MatA" or s == "MatB" or s == "MatC" or s == "MatAns":
+        while(True):
+            eq = input(f"식 입력('=' 입력시 결과 출력)\n{s}")
+            s_temp = deepcopy(s)
+
+            if eq[len(eq)-1] == "=":
+                s_temp += eq 
+                try:
+                    eq_cal_final = s_temp[0:len(s_temp)-1]
+                    eq_cal_final = eq_cal_final.replace("MatAns", "matAns")
+                    eq_cal_final = eq_cal_final.replace("MatA", "matA")
+                    eq_cal_final = eq_cal_final.replace("MatB", "matB")
+                    eq_cal_final = eq_cal_final.replace("MatC", "matC")
+                    eval(eq_cal_final)
+                except:
+                    print("wrong input, try again.\n")
+                else:
+                    matAns = deepcopy(eval(eq_cal_final))
+                    print(matAns)
+
+                    print()
+                    break
+            else:
+                print("wrong input, try again.\n")
+                
+    elif s == "det(":
+        while(True):
+            eq = input(f"식 입력(')=' 입력시 결과 출력)\n{s}")
+            s_temp = deepcopy(s)
+
+            if eq[len(eq)-2:len(eq)] == ")=":
+                s_temp += eq 
+                try:
+                    eq_cal_final = s_temp[4:-2]
+                    eq_cal_final = eq_cal_final.replace("MatAns", "matAns")
+                    eq_cal_final = eq_cal_final.replace("MatA", "matA")
+                    eq_cal_final = eq_cal_final.replace("MatB", "matB")
+                    eq_cal_final = eq_cal_final.replace("MatC", "matC")
+                    eval(eq_cal_final)
+                except:
+                    print("wrong input, try again.\n")
+                else:
+                    print(det(eval(eq_cal_final)))
+                    print()
+                    break
+            else:
+                print("wrong input, try again.\n")
+
+    elif s == "trn(":
+        while(True):
+            eq = input(f"식 입력(')=' 입력시 결과 출력)\n{s}")
+            s_temp = deepcopy(s)
+
+            if eq[len(eq)-2:len(eq)] == ")=":
+                s_temp += eq 
+                try:
+                    eq_cal_final = s_temp[4:-2]
+                    eq_cal_final = eq_cal_final.replace("MatAns", "matAns")
+                    eq_cal_final = eq_cal_final.replace("MatA", "matA")
+                    eq_cal_final = eq_cal_final.replace("MatB", "matB")
+                    eq_cal_final = eq_cal_final.replace("MatC", "matC")
+                    eval(eq_cal_final)
+                except:
+                    print("wrong input, try again.\n")
+                else:
+                    matAns = trn(eval(eq_cal_final))
+                    print(matAns)
+                    print()
+                    break
+            else:
+                print("wrong input, try again.\n")
+
+    return matA, matB, matC, matAns
+
+
+
+                
+def mode5():
+    matA = []
+    matB = deepcopy(matA)
+    matC = deepcopy(matA)
+    matAns = deepcopy(matA)
 
     while(True):
-        op = input("1:menu, 0:프로그램 종료\n")
+        op = input("0:프로그램 종료, 1:menu\n")
         
         if op == "1":
             print()
             menu = ""
-            menu = menu()
+            menu = menu_call()
+            eq_cal = ""
+
             
             if menu == "1":
                 matA, matB, matC = menu1(matA, matB, matC)
+                
             elif menu =="2":
                 menu2(matA, matB, matC)
+                
             elif menu =="3":
-                equation += "MatA"
+                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "MatA")
+                        
             elif menu =="4":
-                equation += "MatB"
+                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "MatB")
+
             elif menu =="5":
-                equation += "MatC" #6 해야함!!!
+                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "MatC")
+                        
+            elif menu == "6":
+                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "MatAns")
+                        
             elif menu == "7":
-                menu7(matA, matB, matC)
+                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "det(")
+                        
             elif menu == "8":
-                menu8(matA, matB, matC)
-            
+                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "trn(")
+                        
+            elif menu == "9":
+                eq = "(  )*(  )"
+                print(eq)
+                matrix1 = ""
+                while(True):
+                    matrix1 = input("Matrix?\n1.MatA 2.MatB 3.MatC 4.MatAns\n")
+                    if matrix1 == "1" or matrix1 == "2" or matrix1 == "3" or matrix1 == "4":
+                        break
+                if matrix1 == "1":
+                    eq = "MatA*"
+                    print(eq)
+                elif matrix1 == "2":
+                    eq = "MatB*"
+                    print(eq)
+                elif matrix1 == "3":
+                    eq = "MatC*"
+                    print(eq)
+                elif matrix1 == "4":
+                    eq = "MatAns*"
+                    print(eq)
+                matrix2 = ""
+                while(True):
+                    matrix2 = input("Matrix?\n1.MatA 2.MatB 3.MatC 4.MatAns\n")
+                    if matrix2 == "1" or matrix2 == "2" or matrix2 == "3" or matrix2 == "4":
+                        break
+                eq1 = ""
+                if matrix2 == "1":
+                    eq1 = "MatA*"
+                elif matrix2 == "2":
+                    eq1 = "MatB*"
+                elif matrix2 == "3":
+                    eq1 = "MatC*"
+                elif matrix2 == "4":
+                    eq1 = "MatAns*"
+                eq_final = eq + eq1
+                print(eq_final)
+
+                eq_final = eq_final.replace("MatAns", "matAns")
+                eq_final = eq_final.replace("MatA", "matA")
+                eq_final = eq_final.replace("MatB", "matB")
+                eq_final = eq_final.replace("MatC", "matC")
+
+                eq_dot = eq_final.split("*")
+                matAns = dot(eval(eq_dot[0]), eval(eq_dot[1]))
+                print(matAns)
+
+
         elif op == "0":
             print("===== 프로그램 종료 =====")
             break
@@ -181,13 +338,10 @@ def mode5(matA, matB, matC, eq):
             print("wrong input, try again.")
             print()
             
+   
+mode5()
+            
 
-matA = []
-matB = deepcopy(matA)
-matC = deepcopy(matA)
-eq = ""
-mode5(matA, matB, matC, eq)
-    
-
+            
 
 
