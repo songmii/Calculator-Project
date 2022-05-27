@@ -1,6 +1,7 @@
 from math import *
 '''
 integral((0, 3), 'cos(2x) + 2'))      integral((0, 3), 'x^3 + 2x^2 - 8x + 2'))
+integral((0, 5), 'root(x)')
 '''
 
 
@@ -46,8 +47,8 @@ def x_area(func, x):    # n등분한 사각형의 넓이
 
 
 def make_beautiful_func(input_func: str):
-
     func = input_func.replace("^", "**")  # eval 사용 시 ^가 비트연산자로 인식되므로 **로 바꿔서 지수표현으로 수정
+    func = func.replace("root", "sqrt")
 
     # x 앞에 숫자가 있어도 돌아가도록 수정 (x**3 + 2x**2 - 8x + 2)
     x_index = [i for i in range(len(func)) if func[i] == 'x']  # x의 위치
@@ -64,7 +65,8 @@ def make_beautiful_func(input_func: str):
 
 if __name__ == '__main__':
     print(integral((5, 2), 'x^3 + 2x^2 - 8x + 2'))
-    # # main 함수에서 2 * cos, 3 * log()로 작성해야 한다고 안내
+    # main 함수에서 2 * cos, 3 * log()로 작성해야 한다고 안내
     print(integral((0, pi), 'cos(2x) + 2'))
     print(integral((1, 3), 'log(x, 10)'))
     print(integral((2, 3), 'acos(x)'))
+    print(integral((1, 5), '5 * sqrt(x + 2)'))
