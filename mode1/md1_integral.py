@@ -1,6 +1,5 @@
 from math import *
 '''
-integral(2, 5)(x^3 + 2x^2 - 8x + 2) -> [inte~, '2, 5', 'x^3 ~~'] (괄호기준 3등분)
 integral((0, 3), 'cos(2x) + 2'))      integral((0, 3), 'x^3 + 2x^2 - 8x + 2'))
 '''
 
@@ -15,18 +14,7 @@ def integral(scope: tuple, input_func: str):
         is_minus = True
 
     # 계산식 수정
-    func = input_func.replace("^", "**")    # eval 사용 시 ^가 비트연산자로 인식되므로 **로 바꿔서 지수표현으로 수정
-
-    # x 앞에 숫자가 있어도 돌아가도록 수정 (x**3 + 2x**2 - 8x + 2)
-    index = -1
-    x_index = [i for i in range(len(func)) if func[i] == 'x']    # x의 위치
-
-    plus_index = 0    # 문자를 추가할거니까 추가한 만큼 인덱스에 더할 값
-    for ind in x_index:
-        ind += plus_index
-        if func[ind - 1].isdigit() and ind:
-            func = func[:ind] + ' * ' + func[ind:]
-            plus_index += 3
+    func = make_beautiful_func(input_func)
 
     # 구분구적법 시작
     n = int(10000 * (b - a))   # 1칸을 1만등분
@@ -57,9 +45,26 @@ def x_area(func, x):    # n등분한 사각형의 넓이
     return round(area, 9)
 
 
+def make_beautiful_func(input_func: str):
+
+    func = input_func.replace("^", "**")  # eval 사용 시 ^가 비트연산자로 인식되므로 **로 바꿔서 지수표현으로 수정
+
+    # x 앞에 숫자가 있어도 돌아가도록 수정 (x**3 + 2x**2 - 8x + 2)
+    x_index = [i for i in range(len(func)) if func[i] == 'x']  # x의 위치
+
+    plus_index = 0  # 문자를 추가할거니까 추가한 만큼 인덱스에 더할 값
+    for ind in x_index:
+        ind += plus_index
+        if func[ind - 1].isdigit() and ind:
+            func = func[:ind] + ' * ' + func[ind:]
+            plus_index += 3
+
+    return func
+
+
 if __name__ == '__main__':
     print(integral((5, 2), 'x^3 + 2x^2 - 8x + 2'))
     # # main 함수에서 2 * cos, 3 * log()로 작성해야 한다고 안내
     print(integral((0, pi), 'cos(2x) + 2'))
     print(integral((1, 3), 'log(x, 10)'))
-    # print(integral((2, 3), 'acos(x)'))
+    print(integral((2, 3), 'acos(x)'))
