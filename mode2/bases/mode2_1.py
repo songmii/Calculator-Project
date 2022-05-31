@@ -1,12 +1,13 @@
 # 켤레복소수 구하는 함수
 
-def conjg():
+def conjg() -> (complex, str):
     print("(출력 형식 변경 필요 시 아무것도 입력하지 않고 엔터)")
     exp = input("Conjg >> ").strip()
+    original_exp = exp
     # exp = 23-i
 
     if exp == '':
-        return None
+        return None, None
 
     exp = exp.replace("i", "j")    # 입력을 i로 할텐데 파이썬은 i 대신 j 사용하므로 수정
     # exp = (2 - 3j)(5 + 2j)
@@ -33,9 +34,9 @@ def conjg():
         exp_cmplx = eval(exp)
     except:
         print("잘못된 입력")
-        return 'wrong'
+        return 'wrong', None
 
-    return exp_cmplx.conjugate()    # 켤레복소수 리턴하는 메소드
+    return exp_cmplx.conjugate(), original_exp    # 켤레복소수 리턴하는 메소드
 
 
 if __name__ == '__main__':
