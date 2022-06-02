@@ -19,7 +19,13 @@ def mat_inp(r, c): #matrix 사이즈 입력받고 matrix의 원소들 입력받�
 
     for row in range(len(mat)):
         for col in range(len(mat[row])):
-            mat[row, col] = eval(input(f"[{row}, {col}] = ")) #eval예외처리
+            while(True):
+                try:
+                    mat[row, col] = eval(input(f"[{row}, {col}] = "))
+                    break
+                except:
+                    print("Try again\n")
+                
             
     return mat
 
@@ -62,7 +68,6 @@ def menu2(mat): #3X4행렬 입력받아서 X,Y값을 "X = {X값}, Y = {Y값}, Z 
 
     ans = np.dot(mat_eq_inv,mat_d) # x = (A 역행렬) * b
     
-    print(ans)
     result = f"X = {round(ans[0][0],9)}, Y = {round(ans[1][0],9)}, Z = {round(ans[2][0],9)}"
     return result
 
@@ -231,10 +236,8 @@ def mode4(oname):
             
 
 
-mode4("output.txt")
 
-
-
+#mode4("output.txt")
 
 
 
