@@ -53,24 +53,69 @@ def menu1(matA, matB, matC):  #1:Dim 행렬 A,B,C에 새로운 값을 줄 때 �
     else:
         matrix_temp = np.zeros((2,1), dtype = float)
 
-    if matrix == "1":
-        print("A")
-    elif matrix == "2":
-        print("B")
+    while (True):
+        input_type = input("Input type\n1.직접 식 입력\n2.파일 입력\n")
+        print()
+        if input_type == "1" or input_type == "2":
+            break
+    
+    if input_type == "1":
+        if matrix == "1":
+            print("A")
+        elif matrix == "2":
+            print("B")
+        else:
+            print("C")
+        print(matrix_temp) #빈 행렬 print
+        for i in range(len(matrix_temp)): #행렬을 [row][column]의 형식으로 입력 받아서 임시 저장
+            for j in range(len(matrix_temp[i])):
+                while(True):
+                    try:
+                        while(True):
+                            try:
+                                matrix_temp[i,j] = eval(input(f"[{i}][{j}] : "))
+                                break
+                            except:
+                                print("Try again\n")
+                    except:
+                        print("wrong input, try again.")
+                    else:
+                        break
+
     else:
-        print("C")
-    print(matrix_temp) #빈 행렬 print
+        ifile = ""
+        while (True):
+            iname = input("Input File name : ")
+            try : 
+                ifile = open(iname)
+            except:
+                print(f"{iname} does not exist")
+            else:
+                break
 
-    for i in range(len(matrix_temp)): #행렬을 [row][column]의 형식으로 입력 받아서 임시 저장
-        for j in range(len(matrix_temp[i])):
-            while(True):
-                try:
-                    matrix_temp[i,j] = eval(input(f"[{i}][{j}] : ")) #eval 대신에 mode1 계산!!!!
-                except:
-                    print("wrong input, try again.")
-                else:
-                    break
+        element = []
+        for line in ifile:
+            line = line.strip()
+            element += line.split()
 
+        if len(matrix_temp)*len(matrix_temp[0]) != len(element):
+            print("Input data does not match with selected matrix size")
+        else:
+            for i in range(len(element)):
+                while(True):
+                    try:
+                        element[i] = eval(element[i])
+                        break
+                    except:
+                       print("Try again\n") 
+                
+            count = 0
+            for i in range(len(matrix_temp)):
+                for j in range(len(matrix_temp[i])):
+                    matrix_temp[i,j] = element[count]
+                    count +=1
+        
+            
     m = matrixs(matA, matB, matC)
     m.setMat(matrix, matrix_temp)
     matA, matB, matC = m.getMat()
@@ -154,7 +199,7 @@ def dot(mat1, mat2): #9: martrix들의 dot product
     
     
 
-def menu_call():
+def menu_call():# 메뉴 호출
     menu = ""
     while(True):
         menu = input("1.Dim 2.Data 3.MatA 4.MatB 5.MatC 6.MatAns 7.Det 8.Trn 9.Dot\n")
@@ -166,6 +211,8 @@ def menu_call():
 
 
 def calc_mode5(matA, matB, matC, matAns, s):
+    #MatA,MatB,MatC,MatAns간의 +,-연산 또는 스칼라와의 연산 처리
+    equation = ""
     if s == "MatA" or s == "MatB" or s == "MatC" or s == "MatAns":
         while(True):
             eq = input(f"식 입력('=' 입력시 결과 출력)\n{s}")
@@ -185,13 +232,15 @@ def calc_mode5(matA, matB, matC, matAns, s):
                 else:
                     matAns = deepcopy(eval(eq_cal_final))
                     print(matAns)
-
                     print()
+                    equation = s + eq
+                    return equation, matAns
                     break
             else:
                 print("wrong input, try again.\n")
                 
     elif s == "det(":
+        #행렬 입력받아 식과 행렬식 결과 return
         while(True):
             eq = input(f"식 입력(')=' 입력시 결과 출력)\n{s}")
             s_temp = deepcopy(s)
@@ -210,11 +259,14 @@ def calc_mode5(matA, matB, matC, matAns, s):
                 else:
                     print(det(eval(eq_cal_final)))
                     print()
+                    equation = s + eq
+                    return equation, det(eval(eq_cal_final))
                     break
             else:
                 print("wrong input, try again.\n")
 
     elif s == "trn(":
+        #행렬 입력받아 식과 전치행렬 return
         while(True):
             eq = input(f"식 입력(')=' 입력시 결과 출력)\n{s}")
             s_temp = deepcopy(s)
@@ -234,20 +286,19 @@ def calc_mode5(matA, matB, matC, matAns, s):
                     matAns = trn(eval(eq_cal_final))
                     print(matAns)
                     print()
+                    equation = s + eq
+                    return equation, trn(eval(eq_cal_final))
                     break
             else:
                 print("wrong input, try again.\n")
 
-    return matA, matB, matC, matAns
 
-
-
-                
-def mode5():
+def mode5(oname):
     matA = []
     matB = deepcopy(matA)
     matC = deepcopy(matA)
     matAns = deepcopy(matA)
+    ofile = open(oname, "a")
 
     while(True):
         op = input("0:프로그램 종료, 1:menu\n")
@@ -266,29 +317,68 @@ def mode5():
                 menu2(matA, matB, matC)
                 
             elif menu =="3":
-                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "MatA")
+                try:
+                    equation, matAns = calc_mode5(matA, matB, matC, matAns, "MatA")
+                    ans = str(matAns)
+                    ofile.write(equation + "\n")
+                    ofile.write(ans + "\n\n")
+            
+                except:
+                    pass
                         
             elif menu =="4":
-                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "MatB")
+                try:
+                    equation, matAns = calc_mode5(matA, matB, matC, matAns, "MatB")
+                    ans = str(matAns)
+                    ofile.write(equation + "\n")
+                    ofile.write(ans + "\n")
+                except:
+                    pass
 
             elif menu =="5":
-                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "MatC")
+                try:
+                    equation, matAns = calc_mode5(matA, matB, matC, matAns, "MatC")
+                    ans = str(matAns)
+                    ofile.write(equation + "\n")
+                    ofile.write(ans + "\n\n")
+                except:
+                    pass
                         
             elif menu == "6":
-                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "MatAns")
+                try:
+                    equation, matAns = calc_mode5(matA, matB, matC, matAns, "MatAns")
+                    ans = str(matAns)
+                    ofile.write(equation + "\n")
+                    ofile.write(ans + "\n\n")
+                except:
+                    pass
                         
             elif menu == "7":
-                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "det(")
+                try:
+                    equation, ans_temp = calc_mode5(matA, matB, matC, matAns, "det(")
+                    ans = str(ans_temp)
+                    ofile.write(equation + "\n")
+                    ofile.write(ans + "\n\n")
+                except:
+                    pass
                         
             elif menu == "8":
-                matA, matB, matC, matAns = calc_mode5(matA, matB, matC, matAns, "trn(")
+                try:
+                    equation, ans_temp = calc_mode5(matA, matB, matC, matAns, "trn(")
+                    ans = str(ans_temp)
+                    ofile.write(equation + "\n")
+                    ofile.write(ans + "\n\n")
+                except:
+                    pass
                         
             elif menu == "9":
+                #MatA,MatB,MatC,MatAns중에 두개의 dot product만 지원
+                #X*Y의 형태
                 eq = "(  )*(  )"
                 print(eq)
                 matrix1 = ""
                 while(True):
-                    matrix1 = input("Matrix?\n1.MatA 2.MatB 3.MatC 4.MatAns\n")
+                    matrix1 = input("Matrix?\n1.MatA 2.MatB 3.MatC 4.MatAns\n") #X matrix
                     if matrix1 == "1" or matrix1 == "2" or matrix1 == "3" or matrix1 == "4":
                         break
                 if matrix1 == "1":
@@ -305,20 +395,21 @@ def mode5():
                     print(eq)
                 matrix2 = ""
                 while(True):
-                    matrix2 = input("Matrix?\n1.MatA 2.MatB 3.MatC 4.MatAns\n")
+                    matrix2 = input("Matrix?\n1.MatA 2.MatB 3.MatC 4.MatAns\n") #Y matrix
                     if matrix2 == "1" or matrix2 == "2" or matrix2 == "3" or matrix2 == "4":
                         break
                 eq1 = ""
                 if matrix2 == "1":
-                    eq1 = "MatA*"
+                    eq1 = "MatA"
                 elif matrix2 == "2":
-                    eq1 = "MatB*"
+                    eq1 = "MatB"
                 elif matrix2 == "3":
-                    eq1 = "MatC*"
+                    eq1 = "MatC"
                 elif matrix2 == "4":
-                    eq1 = "MatAns*"
+                    eq1 = "MatAns"
                 eq_final = eq + eq1
                 print(eq_final)
+                equation = eq_final
 
                 eq_final = eq_final.replace("MatAns", "matAns")
                 eq_final = eq_final.replace("MatA", "matA")
@@ -328,20 +419,24 @@ def mode5():
                 eq_dot = eq_final.split("*")
                 matAns = dot(eval(eq_dot[0]), eval(eq_dot[1]))
                 print(matAns)
-
+                print()
+                ans = str(matAns)
+                ofile.write(equation + "\n")
+                ofile.write(ans + "\n\n")
+        
 
         elif op == "0":
             print("===== 프로그램 종료 =====")
+            ofile.close()
             break
         
         else:
             print("wrong input, try again.")
             print()
-            
-   
-mode5()
-            
 
+
+            
+#mode5("output.txt")
             
 
 
