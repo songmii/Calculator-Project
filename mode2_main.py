@@ -1,7 +1,7 @@
 # mode 2 : CMPLX
-from bases.mode2_1 import conjg
-from bases.mode2_2 import get_polar, i_to_polar
-from bases.mode2_3 import get_i, polar_to_i
+from Mode2_funcs.bases.mode2_1 import conjg
+from Mode2_funcs.bases.mode2_2 import get_polar, i_to_polar
+from Mode2_funcs.bases.mode2_3 import get_i, polar_to_i
 from sys import exit
 import datetime
 
@@ -110,4 +110,4 @@ def mode2(filename):
 
 
 if __name__ == '__main__':
-    mode2('out.txt')
+    mode2('Mode2_funcs/out.txt')

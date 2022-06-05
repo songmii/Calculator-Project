@@ -1,6 +1,6 @@
 from math import *
-from md1_integral import integral
-import func_help
+from Mode1_funcs.md1_integral import integral
+from Mode1_funcs import func_help
 from sys import exit
 import datetime
 '''
@@ -138,4 +138,5 @@ def get_inputfile():
 
 
 # mode1_file_input('out.txt')
-mode1('out.txt')
+if __name__ == '__main__':
+    mode1('out.txt')

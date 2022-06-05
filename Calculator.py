@@ -1,9 +1,9 @@
 # 계산기 프로젝트 메인파일
-import mode1
-import mode2
-import mode3
-import mode4
-import mode5
+import mode1_main
+import mode2_main
+import mode3_main
+import mode4_main
+import mode5_main
 
 
 def main():
@@ -28,31 +28,31 @@ def main():
             input_form = input("입력 형식 >> ").strip()
 
             if input_form == '1':
-                # mode1('filename')
-                mode1.mode1.mode1('filename')
+                # Mode1_funcs('filename')
+                mode1_main.mode1('filename')
                 break
 
             elif input_form == '2':
                 # mode1_file_input('filename')
-                mode1.mode1.mode1_file_input('filename')
+                mode1_main.mode1_file_input('filename')
                 break
             # 그 이외에 예외처리하기
 
         elif mode == '2':
-            mode2.mode2.mode2('filename')
+            mode2_main.mode2('filename')
             break
 
         elif mode == '3':
-            mode3.mode3.mode3('filename')
+            mode3_main.mode3('filename')
             break
 
         elif mode == '4':
-            mode4.mode4('filename')
+            mode4_main.mode4('filename')
             break
 
         elif mode == '5':
             pass
-            mode5.mode5('filename')
+            mode5_main.mode5('filename')
 
         else:
             print("잘못된 입력입니다.")

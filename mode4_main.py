@@ -235,8 +235,5 @@ def mode4(oname):
         else:
             print("Invalid Input")
 
+
 # mode4("output.txt")
-
-
-
-

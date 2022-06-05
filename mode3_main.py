@@ -1,9 +1,9 @@
 # mode 3 : base n
-from bases.Bin import bin_calc
-from bases.Oct import oct_calc
-from bases.Hex import hex_calc
-from bases.Dec import dec_calc
-from bases.BaseChange import change
+from Mode3_funcs.bases.Bin import bin_calc
+from Mode3_funcs.bases.Oct import oct_calc
+from Mode3_funcs.bases.Hex import hex_calc
+from Mode3_funcs.bases.Dec import dec_calc
+from Mode3_funcs.bases.BaseChange import change
 import datetime
 
 
