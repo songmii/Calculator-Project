@@ -3,7 +3,7 @@ from cmath import rect
 from math import radians
 
 
-def get_i() -> (complex, str):
+def get_i(ans) -> (complex, str):
     print("(출력 형식 변경 필요 시 아무것도 입력하지 않고 엔터)")
     exp = input("a + bi >> ").strip()
     original_exp = exp
@@ -12,15 +12,29 @@ def get_i() -> (complex, str):
     if exp == '':
         return None, None
 
-    # 괄호가 붙어있을 때 eval이 인식 못하고 에러가 발생하므로 곱하기로 수정
-    exp = exp.replace(")(", ")*(").replace("i", "j")
+    if exp.lower() == 'ans':
+        return 'ans', exp
 
+    # 괄호가 붙어있을 때 eval이 인식 못하고 에러가 발생하므로 곱하기로 수정
+    exp = exp.replace(")(", ")*(").replace("i", "j").replace("^", "**")
+
+
+    # 연산 두 가지 형태가 한번에 들어오면?
+    '''
+    (10 + j5 + 3∠40) / (-3 + j4) + 10∠30 + j5
+    는 어떻게 처리?
+    (10∠10)(5.34∠2.88)
+    '''
     # 입력을 r∠ɵ 형태로 한 경우
     if '∠' in exp:
-        try:
+        try:    # (40∠50 + 20.35∠-30) ^ 0.5    ans + 20∠-30.234
             exp = exp.split('∠')
             r = eval(exp[0])
             deg = eval(exp[1])
+
+            # exp = exp.split()
+            # for p in exp:
+
         except:
             print("잘못된 입력")
             return "wrong", None

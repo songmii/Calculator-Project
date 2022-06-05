@@ -18,6 +18,12 @@ def conjg() -> (complex, str):
     # j 인식 못하므로 1j로 바꿈
     j_index = [i for i in range(len(exp)) if exp[i] == 'j']
 
+    '''
+    ((5 + j2)(-1 + j4) - 5∠60)
+    어떻게 계산할건지??
+    '''
+
+
     plus_count = 0
     for ind in j_index:
         ind += plus_count

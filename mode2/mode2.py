@@ -3,17 +3,20 @@ from bases.mode2_1 import conjg
 from bases.mode2_2 import get_polar, i_to_polar
 from bases.mode2_3 import get_i, polar_to_i
 from sys import exit
+import datetime
 
 
 def mode2(filename):
     # filename : output file name
     ans = None
     fout = open(filename, "a")
+    date = str(datetime.datetime.now()).split()
+    fout.write(f"\n{date[0]}\n")     # 출력파일에 날짜 적기
 
     while True:
         print('''
 ====================================
-        연산 형식 입력 : (0 입력시 프로그램 종료)
+        출력 형식 입력 : (0 입력시 프로그램 종료)
         1. conjg(켤레복소수 계산)
         2. r∠ɵ
         3. a+bi
@@ -65,7 +68,9 @@ def mode2(filename):
                 fout.write(f"{original_exp} >> {ans[0]}∠{ans[1]}\n")
 
         elif n == '3':
-            if ans:    # 출력형식을 변경했을 때 ans값이 있으면 ans를 변경한 출력형식으로 바꿔서 출력 먼저 해줌
+
+            # 출력형식을 변경했을 때 ans값이 있으면 ans를 변경한 출력형식으로 바꿔서 출력 먼저 해줌
+            if ans:
                 if type(ans) is list:
                     print(f"이전의 ans : {ans[0]}∠{ans[1]} >> ", end='')
                     fout.write(f"{ans[0]}∠{ans[1]} >> ")
@@ -79,12 +84,15 @@ def mode2(filename):
                 fout.write(f"{ans}\n")
 
             while True:
-                temp_ans, original_exp = get_i()
+                temp_ans, original_exp = get_i(ans)
 
                 if temp_ans is None:
                     break
                 if temp_ans == 'wrong':
                     print()
+                    continue
+                if temp_ans == 'ans':
+                    print(f"ans >> {ans}\n")
                     continue
 
                 ans = temp_ans

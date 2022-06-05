@@ -3,7 +3,6 @@ from md1_integral import integral
 import func_help
 from sys import exit
 import datetime
-
 '''
 mode 1
 기본 연산 모듈
@@ -12,6 +11,7 @@ mode 1
 
 
 def mode1(filename):
+    # integral = md1_integral.integral
     f = open(filename, "a")
     ans = None
     date = str(datetime.datetime.now()).split()
@@ -138,3 +138,4 @@ def get_inputfile():
 
 
 # mode1_file_input('out.txt')
+mode1('out.txt')
