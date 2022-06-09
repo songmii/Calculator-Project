@@ -15,7 +15,7 @@ def mode3(filename):
 =====================================================\n''')
     ans = None
     change_lst = ['dec', 'bin', 'oct', 'hex']
-    fout = open(filename, "w")
+    fout = open(filename, "a")
 
     date = str(datetime.datetime.now()).split()
     fout.write(f"\n======{date[0]}======\n\n")    # 출력파일에 날짜 적기

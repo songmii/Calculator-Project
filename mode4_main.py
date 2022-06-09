@@ -20,7 +20,7 @@ def mat_inp(r, c):  # matrix 사이즈 입력받고 matrix의 원소들 입력�
 
     for row in range(len(mat)):
         for col in range(len(mat[row])):
-            while (True):
+            while True:
                 try:
                     mat[row, col] = eval(input(f"[{row}, {col}] = "))
                     break
@@ -114,12 +114,12 @@ def func(a, b, c, d, x):  # 3차식의 계수와 x값을 입력받아 결과 ret
 
 def cubic(a, b, c, d):
     n = 2 * (b ** 3) - 9 * a * b * c + 27 * (a ** 2) * d
-    s = ((n ** 2 - (4 * (b ** 2 - 3 * a * c) ** 3))) ** 0.5
+    s = (n ** 2 - (4 * (b ** 2 - 3 * a * c) ** 3)) ** 0.5
     r0 = -(b / 3 / a) - (1 / 3 / a) * (((n + s) / 2) ** (1 / 3) + ((n - s) / 2) ** (1 / 3))
     r1 = -(b / 3 / a) + ((1 + (3 ** 0.5) * 1j) / 6 / a) * (((n + s) / 2) ** (1 / 3)) + (
-                (1 - (3 ** 0.5) * 1j) / 6 / a) * (((n - s) / 2) ** (1 / 3))
+            (1 - (3 ** 0.5) * 1j) / 6 / a) * (((n - s) / 2) ** (1 / 3))
     r2 = -(b / 3 / a) + ((1 - (3 ** 0.5) * 1j) / 6 / a) * (((n + s) / 2) ** (1 / 3)) + (
-                (1 + (3 ** 0.5) * 1j) / 6 / a) * (((n - s) / 2) ** (1 / 3))
+            (1 + (3 ** 0.5) * 1j) / 6 / a) * (((n - s) / 2) ** (1 / 3))
     return r0, r1, r2
 
 
@@ -190,38 +190,34 @@ def mode4(oname):
         if n == '1':
             mat = mat_inp(2, 3)
             ans = menu1(mat)
-            if ans != None:
+            if ans is not None:
                 ofile.write(str(mat) + "\n")
                 ofile.write(ans + "\n\n")
                 print(ans)
-
 
         elif n == '2':
             mat = mat_inp(3, 4)
             ans = menu2(mat)
-            if ans != None:
+            if ans is not None:
                 ofile.write(str(mat) + "\n")
                 ofile.write(ans + "\n\n")
                 print(ans)
-
 
         elif n == '3':
             mat = mat_inp(1, 3)
             ans = menu3(mat)
-            if ans != None:
+            if ans is not None:
                 ofile.write(str(mat) + "\n")
                 ofile.write(ans + "\n\n")
                 print(ans)
-
 
         elif n == '4':
             mat = mat_inp(1, 4)
             ans = menu4(mat)
-            if ans != None:
+            if ans is not None:
                 ofile.write(str(mat) + "\n")
                 ofile.write(ans + "\n\n")
                 print(ans)
-
 
         elif n == '0':
             ofile.close()
@@ -234,6 +230,5 @@ def mode4(oname):
 
         else:
             print("Invalid Input")
-
 
 # mode4("output.txt")

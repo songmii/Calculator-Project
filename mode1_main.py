@@ -11,7 +11,6 @@ mode 1
 
 
 def mode1(filename):
-    # integral = md1_integral.integral
     f = open(filename, "a")
     ans = None
     date = str(datetime.datetime.now()).split()
@@ -55,8 +54,7 @@ def mode1(filename):
 
         if expression.lower() == 'ans':
             if ans is None:
-                print("이전의 계산값이 없습니다")
-                print()
+                print("이전의 계산값이 없습니다.\n")
                 continue
             else:
                 print(ans)
@@ -65,7 +63,6 @@ def mode1(filename):
 
         # eval 내에서 돌아가도록 expression 수정
         exp = make_beautiful_exp(expression)
-        # print(exp)
 
         try:
             temp_ans = eval(exp)
@@ -101,14 +98,14 @@ def mode1_file_input(out_file_name):
 
         # eval 내에서 돌아가도록 expression 수정
         exp = make_beautiful_exp(expression)
-        print(exp)
+        # print(exp)
 
         try:
             temp_ans = eval(exp)
             ans = round(float(temp_ans), 9)
         except:
-            print("잘못된 입력")
-            print()
+            print("잘못된 입력\n")
+            f.write(f"{expression} >> None\n")
             continue
 
         print(ans)
@@ -139,4 +136,5 @@ def get_inputfile():
 
 # mode1_file_input('out.txt')
 if __name__ == '__main__':
-    mode1('out.txt')
+    # mode1('out.txt')
+    mode1_file_input('out.txt')
