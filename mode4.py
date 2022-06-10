@@ -1,7 +1,8 @@
 import numpy as np
 import random
 
-def mat_inp(r, c): #matrix 사이즈 입력받고 matrix의 원소들 입력받아 matrix return
+def mat_inp(r, c):
+    #matrix 사이즈 입력받고 matrix의 원소들 입력받아 matrix return
     mat = np.zeros((r,c))
 
     s = "   "
@@ -24,18 +25,18 @@ def mat_inp(r, c): #matrix 사이즈 입력받고 matrix의 원소들 입력받�
                     mat[row, col] = eval(input(f"[{row}, {col}] = "))
                     break
                 except:
-                    print("Try again\n")
+                    print("잘못된 입력\n")
                 
             
     return mat
 
 
-def menu1(mat): #2X3행렬 입력받아서 X,Y값을 "X = {X값}, Y = {Y값}"의 형태의  string으로 return
-    '''
-    2X3행렬 (Ax =b)
-    a1x + b1y = c1
-    a2x + b2y = c2
-    '''
+def menu1(mat):
+    #2X3행렬 입력받아서 X,Y값을 "X = {X값}, Y = {Y값}"의 형태의  string으로 return
+    #2X3행렬 (Ax =b)
+    #a1x + b1y = c1
+    #a2x + b2y = c2
+
     if mat[0,0] == 0 and mat[0,1] ==0 and mat[0,2] != 0: # a1,b1 = 0이고 c1은 0이 아닌경우
         print("Math Error")
     elif mat[1,0] == 0 and mat[1,1] ==0 and mat[1,2] != 0: # a2,b2 = 0이고 c2은 0이 아닌경우
@@ -49,13 +50,13 @@ def menu1(mat): #2X3행렬 입력받아서 X,Y값을 "X = {X값}, Y = {Y값}"의
         return result
 
 
-def menu2(mat): #3X4행렬 입력받아서 X,Y값을 "X = {X값}, Y = {Y값}, Z = {Z값}"의 string으로 return
-    '''
-    3X4행렬 (Ax = b)
-    a1x + b1y + c1z = d1
-    a2x + b2y + c2z = d2
-    a3x + b3y + c3z = d3
-    '''
+def menu2(mat):
+    #3X4행렬 입력받아서 X,Y값을 "X = {X값}, Y = {Y값}, Z = {Z값}"의 string으로 return
+    #3X4행렬 (Ax = b)
+    #a1x + b1y + c1z = d1
+    #a2x + b2y + c2z = d2
+    #a3x + b3y + c3z = d3
+    
     mat_eq = np.zeros((3,3))
     mat_d = np.zeros((3,1))
     for i in range(3):
@@ -72,12 +73,12 @@ def menu2(mat): #3X4행렬 입력받아서 X,Y값을 "X = {X값}, Y = {Y값}, Z 
     return result
 
 
-def menu3(mat): #3X1행렬 입력받아서 X,Y값을 "X1 = {X1값}, X2 = {X2값}"의 string으로 return
-    '''
-    3X1행렬
-    ax^2 + bx + c = 0
+def menu3(mat):
+    #3X1행렬 입력받아서 X,Y값을 "X1 = {X1값}, X2 = {X2값}"의 string으로 return
+    #3X1행렬
+    #ax^2 + bx + c = 0
 
-    '''
+    
     a = mat[0][0]
     b = mat[0][1]
     c = mat[0][2]
@@ -109,7 +110,8 @@ def menu3(mat): #3X1행렬 입력받아서 X,Y값을 "X1 = {X1값}, X2 = {X2값}
         return result
     
 
-def func(a, b, c, d, x):#3차식의 계수와 x값을 입력받아 결과 return
+def func(a, b, c, d, x):
+    #3차식의 계수와 x값을 입력받아 결과 return
     return (a * (x**3)) + (b * (x**2)) + (c * x) + d
 
 
@@ -122,12 +124,12 @@ def cubic(a,b,c,d):
     return r0,r1,r2
 
 
-def menu4(mat):#4X1행렬 입력받아서 X,Y값을 "X1 = {X1값}, X2 = {X2값}, X3 = {X3값}"의 string으로 return
-    '''
-    4X1행렬
-    ax^3 + bx^2 + cx + d = 0
+def menu4(mat):
+    #4X1행렬 입력받아서 X,Y값을 "X1 = {X1값}, X2 = {X2값}, X3 = {X3값}"의 string으로 return
+    #4X1행렬
+    #ax^3 + bx^2 + cx + d = 0
 
-    '''
+
     a = float(mat[0][0])
     b = float(mat[0][1])
     c = float(mat[0][2])
@@ -172,7 +174,7 @@ def mode4(oname):
 
     while True:
         print('''
-====================================
+===================================================
         연산 형식 입력 : (0 입력시 프로그램 종료)
         1. anX + bnY = cn
         2. anX + bnY + cnZ = dn
@@ -181,7 +183,7 @@ def mode4(oname):
         
         입력 예시
         연산 형식 >> 2
-====================================
+===================================================
         ''')
         n = input("연산 형식>> ").strip()
         print()
@@ -232,7 +234,7 @@ def mode4(oname):
             exit(0)
 
         else:
-            print("Invalid Input")
+            print("잘못된 입력\n")
             
 
 
