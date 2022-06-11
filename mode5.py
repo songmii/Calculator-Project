@@ -33,7 +33,7 @@ def menu1(matA, matB, matC):  #1:Dim 행렬 A,B,C에 새로운 값을 입력할 
     2.MatB
     3.MatC
 =================================
-    ''') #A,B,C 중 선택
+>> ''') #A,B,C 중 선택
         if matrix == "1" or matrix == "2" or matrix == "3":
             break
 
@@ -49,7 +49,7 @@ def menu1(matA, matB, matC):  #1:Dim 행렬 A,B,C에 새로운 값을 입력할 
     5.2x2
     6.2x1
 =================================
-    ''')#선택된 행렬의 크기 선택
+>> ''')#선택된 행렬의 크기 선택
         print()
         if size == "1" or size == "2" or size == "3" or \
            size == "4" or size == "5" or size == "6":
@@ -76,7 +76,7 @@ def menu1(matA, matB, matC):  #1:Dim 행렬 A,B,C에 새로운 값을 입력할 
     1. 식 입력
     2. 파일 입력
 =================================
-    ''')
+입력 형식>> ''')
 
         if input_type == "1" or input_type == "2":
             break
@@ -131,10 +131,10 @@ def menu1(matA, matB, matC):  #1:Dim 행렬 A,B,C에 새로운 값을 입력할 
     4.2 1+3 3*5
     9
 ==============================================================
-    """)
+""")
         ifile = ""
         while (True):
-            iname = input("파일 이름 : ")
+            iname = input("파일 이름>> ")
             try : 
                 ifile = open(iname)
             except:
@@ -183,7 +183,7 @@ def menu2(matA, matB, matC): #2:Data  행렬 A,B,C에 어떤 값이 저장되어
     2.MatB
     3.MatC
 =================================
-    ''') #A,B,C 중 선택
+>> ''') #A,B,C 중 선택
         if matrix == "1" or matrix == "2" or matrix == "3":
             break
 
@@ -222,12 +222,12 @@ def det(mat):#2x2 또는 3x3 행렬의 행렬식 계산
         print()
         
     if len(mat) == 2: #2x2
-        return mat[0,0]*mat[1,1] - mat[0,1]*mat[1,0]
+        return round(mat[0,0]*mat[1,1] - mat[0,1]*mat[1,0],9)
     
     else: #3x3
-        return mat[0,0]*(mat[1,1]*mat[2,2]-mat[1,2]*mat[2,1])\
+        return round(mat[0,0]*(mat[1,1]*mat[2,2]-mat[1,2]*mat[2,1])\
                 -mat[0,1]*(mat[1,0]*mat[2,2]-mat[1,2]*mat[2,0])\
-                +mat[0,2]*(mat[1,0]*mat[2,1]-mat[1,1]*mat[2,0])
+                +mat[0,2]*(mat[1,0]*mat[2,1]-mat[1,1]*mat[2,0]),9)
 
     
 def trn(mat): #행렬의 전치행렬 return
@@ -270,7 +270,7 @@ def menu_call():# 메뉴 호출
     while(True):
         menu = input('''
 ==============================================================
-        연산 형식 입력 : (0 입력시 프로그램 종료)
+        메뉴 입력 : (0 입력시 프로그램 종료)
         1. Dim : 행렬에 값을 입력합니다
         2. Data : 행렬에 입력된 값을 확인합니다
         3. MatA : 행렬A를 이용한 연산을 합니다
@@ -286,7 +286,7 @@ def menu_call():# 메뉴 호출
         입력 예시
         >> 1
 ==============================================================
-        ''')
+연산 형식>> ''')
     
         if menu == "1" or menu == "2" or menu == "3" or menu == "4" or menu == "5" \
            or menu == "6" or menu == "7" or menu == "8" or menu == "9" or menu == "0":
@@ -314,7 +314,7 @@ def calc_mode5(matA, matB, matC, matAns, s):
     >> + MatAns =
     >> -MatA+(MatB+MatC)= 
 ==============================================================
-    ''' + f"{s}")
+>> ''' + f"{s}")
             s_temp = deepcopy(s)
 
             if eq[len(eq)-1] == "=":
@@ -352,7 +352,7 @@ def calc_mode5(matA, matB, matC, matAns, s):
     >> MatB + MatC*2)=
     >> -MatA+(MatB+MatC) )= 
 ==============================================================
-    ''' + f"{s}")
+>>''' + f"{s}")
             s_temp = deepcopy(s)
 
             if eq[len(eq)-2:len(eq)] == ")=":
@@ -389,7 +389,7 @@ def calc_mode5(matA, matB, matC, matAns, s):
     >> MatB + MatC*2)=
     >> -MatA+(MatB+MatC) )= 
 ==============================================================
-    ''' + f"{s}")
+>> ''' + f"{s}")
             s_temp = deepcopy(s)
 
             if eq[len(eq)-2:len(eq)] == ")=":
@@ -482,7 +482,7 @@ def mode5(oname):
                         
         elif menu == "8":
             try:
-                equation, ans_temp = calc_mode5(matA, matB, matC, matAns, "trn(")
+                equation, matAns = calc_mode5(matA, matB, matC, matAns, "trn(")
                 ans = str(ans_temp)
                 ofile.write(equation + "\n")
                 ofile.write(ans + "\n\n")
@@ -504,7 +504,7 @@ def mode5(oname):
     3.MatC
     4.MatAns
 =================================
-    ''') #X matrix
+>> ''') #X matrix
                 if matrix1 == "1" or matrix1 == "2" or matrix1 == "3" or matrix1 == "4":
                     break
             if matrix1 == "1":
@@ -529,7 +529,7 @@ def mode5(oname):
     3.MatC
     4.MatAns
 =================================
-    ''') #Y matrix
+>> ''') #Y matrix
                 if matrix2 == "1" or matrix2 == "2" or matrix2 == "3" or matrix2 == "4":
                     break
             eq1 = ""
@@ -574,7 +574,7 @@ def mode5(oname):
 
 
             
-#mode5("output.txt")
+mode5("output.txt")
             
 
 
