@@ -1,8 +1,4 @@
 from math import *
-'''
-integral((0, 3), 'cos(2x) + 2'))      integral((0, 3), 'x^3 + 2x^2 - 8x + 2'))
-integral((0, 5), 'root(x)')
-'''
 
 
 def integral(scope: tuple, input_func: str):

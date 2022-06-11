@@ -17,6 +17,7 @@ def mode2(filename):
         print('''
 ====================================
         출력 형식 입력 : (0 입력시 프로그램 종료)
+        (r∠ɵ 형식에서 각도 단위는 degree)
         1. conjg(켤레복소수 계산)
         2. r∠ɵ
         3. a+bi
@@ -54,7 +55,7 @@ def mode2(filename):
                 fout.write(f"{ans[0]}∠{ans[1]}\n")
 
             while True:
-                temp_ans, original_exp = get_polar()
+                temp_ans, original_exp = get_polar(ans)
 
                 if temp_ans is None:
                     break
